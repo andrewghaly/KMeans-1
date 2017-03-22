@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
 from math import sqrt
 from random import randint
 
@@ -89,8 +90,8 @@ def plotCentroids(centroidList):
 
 
 def start():
+    k = int(sys.argv[1])
     r = lambda: randint(0, 255)
-    k = 3
     numberOfCoordinates = 150
     coordinates = 10 * np.random.random((numberOfCoordinates, 2)) + 1
     coordinateList = list()
