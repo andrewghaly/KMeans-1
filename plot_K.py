@@ -92,7 +92,7 @@ def plotCentroids(centroidList):
 def main():
     k = int(sys.argv[1])
     r = lambda: randint(0, 255)
-    numberOfCoordinates = 150
+    numberOfCoordinates = int(sys.argv[2])
     coordinates = 10 * np.random.random((numberOfCoordinates, 2)) + 1
     coordinateList = list()
     for position in coordinates:
