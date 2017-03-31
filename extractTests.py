@@ -1,13 +1,14 @@
 #!/usr/bin/python
 
-# TODO replace alfanoe stuff with vars
-# TODO change hardcoded number of exercises
-# TODO
-# TODO change output format for k-means
 import os
 import sys
 import subprocess
 import string
+
+# TODO replace alfanoe stuff with vars
+# TODO change hardcoded number of exercises
+# TODO
+# TODO change output format for k-means
 
 NUM_ASSIGNMENTS = 18
 
@@ -30,7 +31,7 @@ def checkTests(out):
         return "PASSED ALL"
 
 
-for i in range(1, NUM_ASSIGNMENTS + 1):
+for i in range(1, 19):
 
     print "\n**OPENING ", i
     try:
@@ -42,8 +43,10 @@ for i in range(1, NUM_ASSIGNMENTS + 1):
     f.close()
 
     # TODO: regex
-    oldtest = "	private static calendar.source.PA6a" + str(i - 1) + " testClass;"
-    newtest = "	private static calendar.source.PA6a" + str(i) + " testClass;"
+    oldtest = "    private static calendar.source.PA6a" + str(i - 1) + " testClass;"
+    newtest = "    private static calendar.source.PA6a" + str(i) + " testClass;"
+    #oldtest = " private static calendar.source.PA6a18 testClass;"
+    #newtest = " private static calendar.source.PA6a1 testClass;"
 
     # f = open(javafile, 'r')
     # newf = open(javafile + "")
@@ -63,7 +66,7 @@ for i in range(1, NUM_ASSIGNMENTS + 1):
         f.write(newdata)
         f.close()
     else:
-        oldtest = "	private static calendar.source.PA6a18 testClass;"
+        oldtest = "    private static calendar.source.PA6a18 testClass;"
         newdata = filedata.replace(oldtest, newtest)
 
         f = open(javafile, 'w')
@@ -71,10 +74,8 @@ for i in range(1, NUM_ASSIGNMENTS + 1):
         f.close()
 
     os.system(compile)
-    os.system(
-        "cp /Users/alfanoe/Downloads/pa6-calendar-student-1/src/edu/wit/cs/comp1000/tests/PA6aTestCase.class /Users/alfanoe/Downloads/pa6-calendar-student-1/out/production/pa6-calendar-student-1/edu/wit/cs/comp1000/tests")
-    # out = os.system(run)
-    out = subprocess.Popen([run], stdout=subprocess.PIPE, shell=True)
+    os.system("cp /Users/alfanoe/Downloads/pa6-calendar-student-1/src/edu/wit/cs/comp1000/tests/PA6aTestCase.class /Users/alfanoe/Downloads/pa6-calendar-student-1/out/production/pa6-calendar-student-1/edu/wit/cs/comp1000/tests")
+    out = subprocess.Popen([run], stdout=subprocess.PIPE, shell=True) #run java file via subprocess to fix stdout and stderr
     out = out.stdout.read()
 
     print "CHECKING", i, "\n", checkTests(out)
