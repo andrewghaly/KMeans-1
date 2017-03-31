@@ -98,7 +98,7 @@ def main():
     for position in coordinates:
         coordinateList.append(Coordinate(position, None))
 
-    randomCentroidList = 10 * np.random.random((k, 3)) + 1
+    randomCentroidList = 10 * np.random.random((k, 2)) + 1
     centroidList = list()
     i = 0
     for centroid_position in randomCentroidList:
@@ -124,5 +124,4 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()
