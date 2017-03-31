@@ -1,6 +1,5 @@
 import os
 import re
-import fileinput
 
 path = """/Users/andrewghaly/Google Drive/Home/School/Classes/Semester VII/Artificial Intelligence/Project/pa6-calendar-student/source"""
 for root, dirs, files in os.walk(path):
