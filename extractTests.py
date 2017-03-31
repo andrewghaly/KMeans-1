@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
-#TODO replace alfanoe stuff with vars
-#TODO change hardcoded number of exercises
-#TODO 
-#TODO change output format for k-means
+# TODO replace alfanoe stuff with vars
+# TODO change hardcoded number of exercises
+# TODO
+# TODO change output format for k-means
 import os
 import sys
 import subprocess
@@ -18,63 +18,65 @@ javafile = '/Users/alfanoe/Downloads/pa6-calendar-student-1/src/edu/wit/cs/comp1
 
 
 def checkTests(out):
-	if "testFailed" in out:
-		fail=[]
-		for line in out.split('\n'):
-			if "testFailed" in line:
-				list = line.split(" ")
-				print "FAILED: ", list[1]
-				fail.append(list[1])
-		return "LIST", fail
-	else:
-		return "PASSED ALL"
+    if "testFailed" in out:
+        fail = []
+        for line in out.split('\n'):
+            if "testFailed" in line:
+                list = line.split(" ")
+                print "FAILED: ", list[1]
+                fail.append(list[1])
+        return "LIST", fail
+    else:
+        return "PASSED ALL"
 
-for i in range(1, NUM_ASSIGNMENTS+1):	
 
-	print "\n**OPENING ", i
-	try:
-	    f = open(javafile, 'r')
-	except IOError, e:
-	    print "Could not open file."
-	    sys.exit()
-	filedata = f.read()
-	f.close()
+for i in range(1, NUM_ASSIGNMENTS + 1):
 
-	#TODO: regex
-	oldtest = "	private static calendar.source.PA6a" + str(i-1) + " testClass;"
-	newtest = "	private static calendar.source.PA6a" + str(i) + " testClass;"
+    print "\n**OPENING ", i
+    try:
+        f = open(javafile, 'r')
+    except IOError, e:
+        print "Could not open file."
+        sys.exit()
+    filedata = f.read()
+    f.close()
 
-	# f = open(javafile, 'r')
-	# newf = open(javafile + "")
-	# for line in f:
-	# 	if "	private static calendar.source.PA6a" in line:
-	# 				newf.write(newtest)
-	# 	else:
-	# 		newf.write(line)
+    # TODO: regex
+    oldtest = "	private static calendar.source.PA6a" + str(i - 1) + " testClass;"
+    newtest = "	private static calendar.source.PA6a" + str(i) + " testClass;"
 
-	# print "*********NEW FILE IS:"
-	# print newf
+    # f = open(javafile, 'r')
+    # newf = open(javafile + "")
+    # for line in f:
+    # 	if "	private static calendar.source.PA6a" in line:
+    # 				newf.write(newtest)
+    # 	else:
+    # 		newf.write(line)
 
-	if i != 1:
-		newdata = filedata.replace(oldtest, newtest)
+    # print "*********NEW FILE IS:"
+    # print newf
 
-		f = open(javafile, 'w')
-		f.write(newdata)
-		f.close()
-	else:
-		oldtest = "	private static calendar.source.PA6a18 testClass;"
-		newdata = filedata.replace(oldtest, newtest)
+    if i != 1:
+        newdata = filedata.replace(oldtest, newtest)
 
-		f = open(javafile, 'w')
-		f.write(newdata)
-		f.close()
+        f = open(javafile, 'w')
+        f.write(newdata)
+        f.close()
+    else:
+        oldtest = "	private static calendar.source.PA6a18 testClass;"
+        newdata = filedata.replace(oldtest, newtest)
 
-	os.system(compile)
-	os.system("cp /Users/alfanoe/Downloads/pa6-calendar-student-1/src/edu/wit/cs/comp1000/tests/PA6aTestCase.class /Users/alfanoe/Downloads/pa6-calendar-student-1/out/production/pa6-calendar-student-1/edu/wit/cs/comp1000/tests")
-#out = os.system(run)
-	out = subprocess.Popen([run], stdout=subprocess.PIPE, shell=True)
-	out = out.stdout.read()
+        f = open(javafile, 'w')
+        f.write(newdata)
+        f.close()
 
-	print "CHECKING", i, "\n", checkTests(out)
+    os.system(compile)
+    os.system(
+        "cp /Users/alfanoe/Downloads/pa6-calendar-student-1/src/edu/wit/cs/comp1000/tests/PA6aTestCase.class /Users/alfanoe/Downloads/pa6-calendar-student-1/out/production/pa6-calendar-student-1/edu/wit/cs/comp1000/tests")
+    # out = os.system(run)
+    out = subprocess.Popen([run], stdout=subprocess.PIPE, shell=True)
+    out = out.stdout.read()
+
+    print "CHECKING", i, "\n", checkTests(out)
 
 print "\nCOMPLETE"
