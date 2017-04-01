@@ -16,20 +16,21 @@ studentcode = 'src/calendar/source/'
 compile = "javac " + utestfile + ' -classpath src:src/junit-4.12.jar'
 run = 'java -cp src/junit-4.12.jar:src/hamcrest-core-1.3.jar:src org.junit.runner.JUnitCore edu.wit.cs.comp1000.tests.PA6aTestCase'
 
+resultsDict = {}
+
 
 def checkTests(out):
     if "OK (" in out:
-        return "PASSED ALL"
+        return "OK"
     else:
         print "SOMETHING FAILED !!"
-        failed = []
+        list = []
         r = re.compile(r"\) |\(")
         for line in out.split('\n'):
             if ") test" in line:
-                # list = line.split("(")
-                list = r.split(line)
-                failed.append(list[1])
-        return failed
+                failure = r.split(line)
+                list.append(failure[1])
+        return list
 
 
 i = 1
@@ -58,7 +59,13 @@ for file in glob.glob(studentcode + '*.java'):
                            shell=True)  # run java file via subprocess to fix stdout and stderr
     out = out.stdout.read()
 
-    print "\nCHECKING", i, "\n", checkTests(out)
+    print "\nCHECKING", i
+    check = checkTests(out)
+    print check
+
+    resultsDict[i] = check
+
     i += 1
 
 print "\nCOMPLETE"
+print resultsDict
