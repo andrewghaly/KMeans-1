@@ -4,80 +4,68 @@ import os
 import sys
 import subprocess
 import string
+import glob
+import re
 
-# TODO replace alfanoe stuff with vars
-# TODO change hardcoded number of exercises
-# TODO
 # TODO change output format for k-means
 
-NUM_ASSIGNMENTS = 18
+# RUN FROM DIR pa6-calendar-student
 
-compile = 'javac /Users/alfanoe/Downloads/pa6-calendar-student-1/src/edu/wit/cs/comp1000/tests/PA6aTestCase.java -classpath /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/lib/junit-4.12.jar:/Users/alfanoe/Downloads/pa6-calendar-student-1/src'
-run = 'java -ea -Didea.test.cyclic.buffer.size=1048576 "-javaagent:/Applications/IntelliJ IDEA CE.app/Contents/lib/idea_rt.jar=61533:/Applications/IntelliJ IDEA CE.app/Contents/bin" -Dfile.encoding=UTF-8 -classpath "/Applications/IntelliJ IDEA CE.app/Contents/lib/idea_rt.jar:/Applications/IntelliJ IDEA CE.app/Contents/plugins/junit/lib/junit-rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/deploy.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext/cldrdata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext/jaccess.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext/nashorn.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/javaws.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/jfxswt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/management-agent.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/plugin.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/lib/ant-javafx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/lib/dt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/lib/javafx-mx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/lib/jconsole.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/lib/packager.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/lib/sa-jdi.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/lib/tools.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/lib/junit-4.12.jar:/Users/alfanoe/Downloads/pa6-calendar-student-1/out/production/pa6-calendar-student-1:/Users/alfanoe/Downloads/pa6-calendar-student-1/junit-4.1.jar" com.intellij.rt.execution.junit.JUnitStarter -ideVersion5 edu.wit.cs.comp1000.tests.PA6aTestCase'
+utestfile = 'src/edu/wit/cs/comp1000/tests/PA6aTestCase.java'
+studentcode = 'src/calendar/source/'
+compile = "javac " + utestfile + ' -classpath src:src/junit-4.12.jar'
+run = 'java -cp src/junit-4.12.jar:src/hamcrest-core-1.3.jar:src org.junit.runner.JUnitCore edu.wit.cs.comp1000.tests.PA6aTestCase'
 
-javafile = '/Users/alfanoe/Downloads/pa6-calendar-student-1/src/edu/wit/cs/comp1000/tests/PA6aTestCase.java'
+resultsDict = {}
 
 
 def checkTests(out):
-    if "testFailed" in out:
-        fail = []
-        for line in out.split('\n'):
-            if "testFailed" in line:
-                list = line.split(" ")
-                print "FAILED: ", list[1]
-                fail.append(list[1])
-        return "LIST", fail
+    if "OK (" in out:
+        return "OK"
     else:
-        return "PASSED ALL"
+        print "SOMETHING FAILED !!"
+        list = []
+        r = re.compile(r"\) |\(")
+        for line in out.split('\n'):
+            if ") test" in line:
+                failure = r.split(line)
+                list.append(failure[1])
+        return list
 
 
-for i in range(1, 19):
-
-    print "\n**OPENING ", i
+i = 1
+for file in glob.glob(studentcode + '*.java'):
     try:
-        f = open(javafile, 'r')
+        f = open(utestfile, 'r')
     except IOError, e:
         print "Could not open file."
         sys.exit()
     filedata = f.read()
     f.close()
 
-    # TODO: regex
-    oldtest = "    private static calendar.source.PA6a" + str(i - 1) + " testClass;"
     newtest = "    private static calendar.source.PA6a" + str(i) + " testClass;"
-    #oldtest = " private static calendar.source.PA6a18 testClass;"
-    #newtest = " private static calendar.source.PA6a1 testClass;"
 
-    # f = open(javafile, 'r')
-    # newf = open(javafile + "")
-    # for line in f:
-    # 	if "	private static calendar.source.PA6a" in line:
-    # 				newf.write(newtest)
-    # 	else:
-    # 		newf.write(line)
+    for line in filedata.split('\n'):
+        if "private static calendar.source.PA6a" in line:
+            oldtest = line
+            newdata = filedata.replace(oldtest, newtest)
 
-    # print "*********NEW FILE IS:"
-    # print newf
-
-    if i != 1:
-        newdata = filedata.replace(oldtest, newtest)
-
-        f = open(javafile, 'w')
-        f.write(newdata)
-        f.close()
-    else:
-        oldtest = "    private static calendar.source.PA6a18 testClass;"
-        newdata = filedata.replace(oldtest, newtest)
-
-        f = open(javafile, 'w')
-        f.write(newdata)
-        f.close()
+            f = open(utestfile, 'w')
+            f.write(newdata)
+            f.close()
 
     os.system(compile)
-    os.system("cp /Users/alfanoe/Downloads/pa6-calendar-student-1/src/edu/wit/cs/comp1000/tests/PA6aTestCase.class /Users/alfanoe/Downloads/pa6-calendar-student-1/out/production/pa6-calendar-student-1/edu/wit/cs/comp1000/tests")
-    out = subprocess.Popen([run], stdout=subprocess.PIPE, shell=True) #run java file via subprocess to fix stdout and stderr
+    out = subprocess.Popen([run], stdout=subprocess.PIPE,
+                           shell=True)  # run java file via subprocess to fix stdout and stderr
     out = out.stdout.read()
 
-    print "CHECKING", i, "\n", checkTests(out)
+    print "\nCHECKING", i
+    check = checkTests(out)
+    print check
+
+    resultsDict[i] = check
+
+    i += 1
 
 print "\nCOMPLETE"
+print resultsDict
