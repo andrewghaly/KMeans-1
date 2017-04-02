@@ -12,8 +12,8 @@ import re
 # RUN FROM DIR pa6-calendar-student
 utestfile = 'src/edu/wit/cs/comp1000/tests/PA6aTestCase.java'
 studentcode = 'src/edu/wit/cs/comp1000/'
-compile = "javac " + utestfile + ' -classpath src:src/junit-4.12.jar'
-run = 'java -cp src/junit-4.12.jar:src/hamcrest-core-1.3.jar:src org.junit.runner.JUnitCore edu.wit.cs.comp1000.tests.PA6aTestCase'
+compile = "javac " + utestfile + ' -classpath src:junit-4.12.jar'
+run = 'java -cp junit-4.12.jar:hamcrest-core-1.3.jar:src org.junit.runner.JUnitCore edu.wit.cs.comp1000.tests.PA6aTestCase'
 resultsDict = {}
 
 # Run to get the number of tests
