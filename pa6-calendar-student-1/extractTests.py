@@ -1,11 +1,7 @@
 #!/usr/bin/python
 # Student sections: s1=1-18 s2 = 19-37 s3 = 38-60
 
-import os
-import sys
-import subprocess
-import glob
-import re
+import os, sys, subprocess, glob, re
 
 # TODO change output format for k-means
 
