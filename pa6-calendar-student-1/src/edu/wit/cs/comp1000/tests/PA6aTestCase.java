@@ -11,7 +11,7 @@ public class PA6aTestCase extends TestCase {
     // Added Code
     private static edu.wit.cs.comp1000.PA6a_Original testClass;
     
-    // Runs everything that starts with test
+    // Runs everything that starts with 'test'
     // End Added Code
 
     @SuppressWarnings("serial")
@@ -173,7 +173,7 @@ public class PA6aTestCase extends TestCase {
     }
 
     public void testYearNeg() {_test(new String[] {"-1", "0"}, String.format(E_YEAR+"%n", new Object[] {}));}
-    public void testZeroYear (){_test(new String[] {"0", "0"}, String.format(E_YEAR+"%n", new Object[] {}));}
+    public void testZeroYear() {_test(new String[] {"0", "0"}, String.format(E_YEAR+"%n", new Object[] {}));}
 
     public void testDayLessGreater() {
         _test(new String[] {"2015", "-2"}, String.format(E_DAY+"%n", new Object[] {}));
