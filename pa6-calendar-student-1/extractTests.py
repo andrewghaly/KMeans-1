@@ -24,7 +24,7 @@ def testNames():
     try:
         f = open(utestfile, 'r')
     except IOError, e:
-        print "Could not open file."
+        print e
         sys.exit()
     filedata = f.read()
     f.close()
@@ -36,20 +36,6 @@ def testNames():
             test = "test" + r.split(line)[1]
             tests.append(test)
     return tests
-
-
-# # Run to get the number of tests
-# out = subprocess.Popen([run], stdout=subprocess.PIPE, shell=True)
-# output = out.stdout.read()
-#
-# # Case if unit test results return OK
-# total_num_tests = output[output.find("(") + 1:output.find(")")].split(" ")[0]
-#
-# # Case for checking if the compiled unit test has failures
-# if total_num_tests is "":
-#     temp = output[output.find("Tests run:"):].split("Tests run: ")[1]
-#     total_num_tests = temp.split(",")[0]
-
 
 # # Parses the output from running the unit tests
 # # Appends it into a dictionary with results
@@ -123,11 +109,10 @@ for index, results in resultsDict.items():
 # print "TESTS", tests
 
 # temp printing stuff
-print "\n\t",
-for test in tests:
-    print str(tests.index(test) + 1) + " ",
-print "\n\n"
-
+# print "\n\t",
+# for test in tests:
+#     print str(tests.index(test) + 1) + " ",
+# print "\n\n"
 
 dataList = []
 
@@ -160,7 +145,7 @@ for index, results in resultsDict.items():
             y += 1
 
         # Sum vector to calculate x coordinate, use calculated y coordinate
-        #print "({0}, {1})".format(sum(row), y)
+        # print "({0}, {1})".format(sum(row), y)
         dataList.append((sum(row), y))
 
 plot_K.main(dataList)
