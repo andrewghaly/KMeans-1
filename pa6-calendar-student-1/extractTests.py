@@ -1,7 +1,13 @@
 #!/usr/bin/python
 # Student sections: s1=1-18 s2 = 19-37 s3 = 38-60
 
-import os, sys, subprocess, glob, re
+import glob
+import os
+import re
+import subprocess
+import sys
+
+import plot_K
 
 # TODO change output format for k-means
 
@@ -122,6 +128,9 @@ for test in tests:
     print str(tests.index(test) + 1) + " ",
 print "\n\n"
 
+
+dataList = []
+
 for index, results in resultsDict.items():
     if results == 0:
         row = []
@@ -138,6 +147,8 @@ for index, results in resultsDict.items():
                 row.append(0)
         matrix.append(row)
         # print index, "\t", row,  # temp printing stuff
+
+        # Categorize vector to calculate y-coordinate
         y = 0
         if row[0] == 1 or row[3] == 1:
             y += 1
@@ -147,6 +158,9 @@ for index, results in resultsDict.items():
             y += 1
         if row[2] == 1 or row[4] == 1:
             y += 1
-        print "({0}, {1})".format(sum(row), y)
-        # for row in matrix:
-        #     print row
+
+        # Sum vector to calculate x coordinate, use calculated y coordinate
+        #print "({0}, {1})".format(sum(row), y)
+        dataList.append((sum(row), y))
+
+plot_K.main(dataList)

@@ -89,7 +89,7 @@ def plotCentroids(centroidList):
         centroid.plot()
 
 
-def main():
+def main(dataList):
     x = [(6, 4),
          (7, 4),
          (7, 4),
@@ -151,7 +151,7 @@ def main():
          (4, 3),
          (0, 0)]
 
-    k = int(sys.argv[1])
+    k = int(3)
     r = lambda: randint(0, 255)
     # numberOfCoordinates = int(sys.argv[2])
     # coordinates = len(x) * np.random.random((numberOfCoordinates, 2)) + 1
@@ -195,6 +195,3 @@ def main():
         plotCoordinates(coordinateList, centroidList)
         plt.show()
 
-
-if __name__ == "__main__":
-    main()
