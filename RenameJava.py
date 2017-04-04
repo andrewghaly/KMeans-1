@@ -21,4 +21,4 @@ for root, dirs, files in os.walk(path):
                 line = re.sub(r"class %s" % file[:-5], "class " + className, line)
                 f.write(line)
 
-        #os.rmdir(root)
+                # os.rmdir(root)
