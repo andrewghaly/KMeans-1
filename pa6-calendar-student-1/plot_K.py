@@ -90,66 +90,6 @@ def plotCentroids(centroidList):
 
 
 def main(dataList):
-    x = [(6, 4),
-         (7, 4),
-         (7, 4),
-         (6, 4),
-         (7, 4),
-         (6, 4),
-         (0, 0),
-         (6, 4),
-         (3, 2),
-         (5, 4),
-         (4, 3),
-         (7, 4),
-         (5, 4),
-         (7, 4),
-         (5, 4),
-         (7, 4),
-         (6, 4),
-         (6, 4),
-         (5, 3),
-         (6, 4),
-         (6, 4),
-         (7, 4),
-         (6, 4),
-         (7, 4),
-         (4, 2),
-         (6, 4),
-         (5, 4),
-         (7, 4),
-         (0, 0),
-         (6, 4),
-         (5, 4),
-         (7, 4),
-         (4, 3),
-         (6, 4),
-         (3, 2),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (7, 4),
-         (6, 4),
-         (4, 3),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (7, 4),
-         (7, 4),
-         (7, 4),
-         (6, 4),
-         (7, 4),
-         (6, 4),
-         (7, 4),
-         (6, 4),
-         (3, 2),
-         (6, 4),
-         (4, 3),
-         (0, 0)]
 
     k = int(3)
     r = lambda: randint(0, 255)
@@ -157,13 +97,13 @@ def main(dataList):
     # coordinates = len(x) * np.random.random((numberOfCoordinates, 2)) + 1
 
     coordinateList = list()
-    for position in x:
+    for position in dataList:
         coordinateList.append(Coordinate(position, None))
 
     # This will generate 3 unique coordinates from x
     randomCentroidList = list()
     while len(randomCentroidList) != k:
-        newCoordinate = x[np.random.randint(0, len(x))]
+        newCoordinate = dataList[np.random.randint(0, len(dataList))]
         if newCoordinate not in randomCentroidList:
             randomCentroidList.append(newCoordinate)
 
