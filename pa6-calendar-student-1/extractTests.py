@@ -31,20 +31,6 @@ def testNames():
             tests.append(test)
     return tests
 
-
-# # Run to get the number of tests
-# out = subprocess.Popen([run], stdout=subprocess.PIPE, shell=True)
-# output = out.stdout.read()
-#
-# # Case if unit test results return OK
-# total_num_tests = output[output.find("(") + 1:output.find(")")].split(" ")[0]
-#
-# # Case for checking if the compiled unit test has failures
-# if total_num_tests is "":
-#     temp = output[output.find("Tests run:"):].split("Tests run: ")[1]
-#     total_num_tests = temp.split(",")[0]
-
-
 # # Parses the output from running the unit tests
 # # Appends it into a dictionary with results
 def checkTests(out):
@@ -65,7 +51,7 @@ i = 1
 print "Running unit tests"
 for file in glob.glob(studentcode + '*.java'):
     print i,
-    file_name_with_extension = file.split("src/edu/wit/cs/comp1000/PA6a")
+    file_name_with_extension = file.split(studentcode + "PA6a")
     file_name = file_name_with_extension[1][:-5]
     try:
         f = open(utestfile, 'r')
@@ -87,8 +73,8 @@ for file in glob.glob(studentcode + '*.java'):
             f = open(utestfile, 'w')
             f.write(newdata)
             f.close()
-
-    os.system(compile)
+    if not glob.glob(file[:-5] + ".class"):
+        os.system(compile) #compile if not already compiled
     out = subprocess.Popen([run], stdout=subprocess.PIPE,
                            shell=True)  # run java file via subprocess to fix stdout and stderr
     out = out.stdout.read()
@@ -106,9 +92,6 @@ print "\nCOMPLETE\n"
 tests = testNames()
 matrix = list()
 
-"""
-    Next two for loops are redundant, exist elsewhere in the code
-"""
 total_num_tests = len(tests)
 
 for index, results in resultsDict.items():
