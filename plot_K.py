@@ -88,6 +88,7 @@ def plotCentroids(centroidList):
     for centroid in centroidList:
         centroid.plot()
 
+
 def main():
     x = [(6, 4),
          (7, 4),
@@ -152,8 +153,6 @@ def main():
 
     k = int(sys.argv[1])
     r = lambda: randint(0, 255)
-    # numberOfCoordinates = int(sys.argv[2])
-    # coordinates = len(x) * np.random.random((numberOfCoordinates, 2)) + 1
 
     coordinateList = list()
     for position in x:
@@ -168,8 +167,15 @@ def main():
 
     # This will generate 3 random coordinates from x
     # randomCentroidList = 10 * np.random.random((k, 2)) + 1
-    # randomCentroidList = [x[index] for index in
-    #                       [np.random.randint(0, len(x)) for i in range(0, k)]]
+
+    # Generate 3 random coordinates within the data set
+    # Get the max bounds for the coordinates
+    maxY = max([yCoordinate[1] for yCoordinate in x])
+    maxX = max([xCoordinate[0] for xCoordinate in x])
+    # Get random k (x,y)
+    coordinateY = [np.random.randint(0, maxY) for c in range (0,k)]
+    coordinateX = [np.random.randint(0, maxX) for c in range (0,k)]
+    randomCentroidList = [(coordinateX[i], coordinateY[i])for i in range(0,k)]
 
     centroidList = list()
     i = 0
