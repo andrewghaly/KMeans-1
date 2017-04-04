@@ -90,12 +90,73 @@ def plotCentroids(centroidList):
 
 
 def main():
+    x = [(6, 4),
+         (7, 4),
+         (7, 4),
+         (6, 4),
+         (7, 4),
+         (6, 4),
+         (0, 0),
+         (6, 4),
+         (3, 2),
+         (5, 4),
+         (4, 3),
+         (7, 4),
+         (5, 4),
+         (7, 4),
+         (5, 4),
+         (7, 4),
+         (6, 4),
+         (6, 4),
+         (5, 3),
+         (6, 4),
+         (6, 4),
+         (7, 4),
+         (6, 4),
+         (7, 4),
+         (4, 2),
+         (6, 4),
+         (5, 4),
+         (7, 4),
+         (0, 0),
+         (6, 4),
+         (5, 4),
+         (7, 4),
+         (4, 3),
+         (6, 4),
+         (3, 2),
+         (6, 4),
+         (6, 4),
+         (6, 4),
+         (6, 4),
+         (6, 4),
+         (6, 4),
+         (6, 4),
+         (7, 4),
+         (6, 4),
+         (4, 3),
+         (6, 4),
+         (6, 4),
+         (6, 4),
+         (7, 4),
+         (7, 4),
+         (7, 4),
+         (6, 4),
+         (7, 4),
+         (6, 4),
+         (7, 4),
+         (6, 4),
+         (3, 2),
+         (6, 4),
+         (4, 3),
+         (0, 0)]
+
     k = int(sys.argv[1])
     r = lambda: randint(0, 255)
     numberOfCoordinates = int(sys.argv[2])
     coordinates = 10 * np.random.random((numberOfCoordinates, 2)) + 1
     coordinateList = list()
-    for position in coordinates:
+    for position in x:
         coordinateList.append(Coordinate(position, None))
 
     randomCentroidList = 10 * np.random.random((k, 2)) + 1

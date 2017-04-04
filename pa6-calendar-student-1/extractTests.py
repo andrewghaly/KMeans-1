@@ -128,7 +128,7 @@ for index, results in resultsDict.items():
         for test in tests:
             row.append(1)
         matrix.append(row)
-        print index, "\t", row  # temp printing stuff
+        #print index, "\t", row  # temp printing stuff
     else:
         row = []
         for test in tests:
@@ -137,7 +137,16 @@ for index, results in resultsDict.items():
             else:
                 row.append(0)
         matrix.append(row)
-        print index, "\t", row  # temp printing stuff
-
+        #print index, "\t", row,  # temp printing stuff
+        y = 0
+        if row[0] == 1 or row[3] == 1:
+            y += 1
+        if row[1] == 1 or row[6] == 1:
+            y += 1
+        if row[5] == 1:
+            y += 1
+        if row[2] == 1 or row[4] == 1:
+            y += 1
+        print "({0}, {1})".format(sum(row), y)
         # for row in matrix:
         #     print row
