@@ -57,7 +57,7 @@ i = 1
 print "Running unit tests"
 for file in glob.glob(studentcode + '*.java'):
     print i,
-    file_name_with_extension = file.split("src/edu/wit/cs/comp1000/PA6a")
+    file_name_with_extension = file.split(studentcode + "PA6a")
     file_name = file_name_with_extension[1][:-5]
     try:
         f = open(utestfile, 'r')
@@ -79,8 +79,8 @@ for file in glob.glob(studentcode + '*.java'):
             f = open(utestfile, 'w')
             f.write(newdata)
             f.close()
-
-    os.system(compile)
+    if not glob.glob(file[:-5] + ".class"):
+        os.system(compile) #compile if not already compiled
     out = subprocess.Popen([run], stdout=subprocess.PIPE,
                            shell=True)  # run java file via subprocess to fix stdout and stderr
     out = out.stdout.read()
@@ -98,9 +98,6 @@ print "\nCOMPLETE\n"
 tests = testNames()
 matrix = list()
 
-"""
-    Next two for loops are redundant, exist elsewhere in the code
-"""
 total_num_tests = len(tests)
 
 for index, results in resultsDict.items():
