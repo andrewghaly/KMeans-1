@@ -88,7 +88,6 @@ def plotCentroids(centroidList):
     for centroid in centroidList:
         centroid.plot()
 
-
 def main():
     x = [(6, 4),
          (7, 4),
@@ -153,13 +152,25 @@ def main():
 
     k = int(sys.argv[1])
     r = lambda: randint(0, 255)
-    numberOfCoordinates = int(sys.argv[2])
-    coordinates = 10 * np.random.random((numberOfCoordinates, 2)) + 1
+    # numberOfCoordinates = int(sys.argv[2])
+    # coordinates = len(x) * np.random.random((numberOfCoordinates, 2)) + 1
+
     coordinateList = list()
     for position in x:
         coordinateList.append(Coordinate(position, None))
 
-    randomCentroidList = 10 * np.random.random((k, 2)) + 1
+    # This will generate 3 unique coordinates from x
+    randomCentroidList = list()
+    while len(randomCentroidList) != k:
+        newCoordinate = x[np.random.randint(0, len(x))]
+        if newCoordinate not in randomCentroidList:
+            randomCentroidList.append(newCoordinate)
+
+    # This will generate 3 random coordinates from x
+    # randomCentroidList = 10 * np.random.random((k, 2)) + 1
+    # randomCentroidList = [x[index] for index in
+    #                       [np.random.randint(0, len(x)) for i in range(0, k)]]
+
     centroidList = list()
     i = 0
     for centroid_position in randomCentroidList:
