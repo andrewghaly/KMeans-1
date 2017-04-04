@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import sys
 from math import sqrt
 from random import randint
 
@@ -89,93 +88,28 @@ def plotCentroids(centroidList):
         centroid.plot()
 
 
-def main():
-    x = [(6, 4),
-         (7, 4),
-         (7, 4),
-         (6, 4),
-         (7, 4),
-         (6, 4),
-         (0, 0),
-         (6, 4),
-         (3, 2),
-         (5, 4),
-         (4, 3),
-         (7, 4),
-         (5, 4),
-         (7, 4),
-         (5, 4),
-         (7, 4),
-         (6, 4),
-         (6, 4),
-         (5, 3),
-         (6, 4),
-         (6, 4),
-         (7, 4),
-         (6, 4),
-         (7, 4),
-         (4, 2),
-         (6, 4),
-         (5, 4),
-         (7, 4),
-         (0, 0),
-         (6, 4),
-         (5, 4),
-         (7, 4),
-         (4, 3),
-         (6, 4),
-         (3, 2),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (7, 4),
-         (6, 4),
-         (4, 3),
-         (6, 4),
-         (6, 4),
-         (6, 4),
-         (7, 4),
-         (7, 4),
-         (7, 4),
-         (6, 4),
-         (7, 4),
-         (6, 4),
-         (7, 4),
-         (6, 4),
-         (3, 2),
-         (6, 4),
-         (4, 3),
-         (0, 0)]
+def main(dataList):
 
-    k = int(sys.argv[1])
+    k = 2
     r = lambda: randint(0, 255)
+    # numberOfCoordinates = int(sys.argv[2])
+    # coordinates = len(x) * np.random.random((numberOfCoordinates, 2)) + 1
 
     coordinateList = list()
-    for position in x:
+    for position in dataList:
         coordinateList.append(Coordinate(position, None))
 
     # This will generate 3 unique coordinates from x
     randomCentroidList = list()
     while len(randomCentroidList) != k:
-        newCoordinate = x[np.random.randint(0, len(x))]
+        newCoordinate = dataList[np.random.randint(0, len(dataList))]
         if newCoordinate not in randomCentroidList:
             randomCentroidList.append(newCoordinate)
 
     # This will generate 3 random coordinates from x
     # randomCentroidList = 10 * np.random.random((k, 2)) + 1
-
-    # Generate 3 random coordinates within the data set
-    # Get the max bounds for the coordinates
-    maxY = max([yCoordinate[1] for yCoordinate in x])
-    maxX = max([xCoordinate[0] for xCoordinate in x])
-    # Get random k (x,y)
-    coordinateY = [np.random.randint(0, maxY) for c in range (0,k)]
-    coordinateX = [np.random.randint(0, maxX) for c in range (0,k)]
-    randomCentroidList = [(coordinateX[i], coordinateY[i])for i in range(0,k)]
+    # randomCentroidList = [x[index] for index in
+    #                       [np.random.randint(0, len(x)) for i in range(0, k)]]
 
     centroidList = list()
     i = 0
@@ -200,6 +134,3 @@ def main():
         plotCoordinates(coordinateList, centroidList)
         plt.show()
 
-
-if __name__ == "__main__":
-    main()

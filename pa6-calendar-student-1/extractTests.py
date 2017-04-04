@@ -1,7 +1,13 @@
 #!/usr/bin/python
 # Student sections: s1=1-18 s2 = 19-37 s3 = 38-60
 
-import os, sys, subprocess, glob, re
+import glob
+import os
+import re
+import subprocess
+import sys
+
+import plot_K
 
 # TODO change output format for k-means
 
@@ -18,7 +24,7 @@ def testNames():
     try:
         f = open(utestfile, 'r')
     except IOError, e:
-        print "Could not open file."
+        print e
         sys.exit()
     filedata = f.read()
     f.close()
@@ -30,20 +36,6 @@ def testNames():
             test = "test" + r.split(line)[1]
             tests.append(test)
     return tests
-
-
-# # Run to get the number of tests
-# out = subprocess.Popen([run], stdout=subprocess.PIPE, shell=True)
-# output = out.stdout.read()
-#
-# # Case if unit test results return OK
-# total_num_tests = output[output.find("(") + 1:output.find(")")].split(" ")[0]
-#
-# # Case for checking if the compiled unit test has failures
-# if total_num_tests is "":
-#     temp = output[output.find("Tests run:"):].split("Tests run: ")[1]
-#     total_num_tests = temp.split(",")[0]
-
 
 # # Parses the output from running the unit tests
 # # Appends it into a dictionary with results
@@ -65,7 +57,7 @@ i = 1
 print "Running unit tests"
 for file in glob.glob(studentcode + '*.java'):
     print i,
-    file_name_with_extension = file.split("src/edu/wit/cs/comp1000/PA6a")
+    file_name_with_extension = file.split(studentcode + "PA6a")
     file_name = file_name_with_extension[1][:-5]
     try:
         f = open(utestfile, 'r')
@@ -87,8 +79,8 @@ for file in glob.glob(studentcode + '*.java'):
             f = open(utestfile, 'w')
             f.write(newdata)
             f.close()
-
-    os.system(compile)
+    if not glob.glob(file[:-5] + ".class"):
+        os.system(compile) #compile if not already compiled
     out = subprocess.Popen([run], stdout=subprocess.PIPE,
                            shell=True)  # run java file via subprocess to fix stdout and stderr
     out = out.stdout.read()
@@ -106,9 +98,6 @@ print "\nCOMPLETE\n"
 tests = testNames()
 matrix = list()
 
-"""
-    Next two for loops are redundant, exist elsewhere in the code
-"""
 total_num_tests = len(tests)
 
 for index, results in resultsDict.items():
@@ -117,10 +106,12 @@ for index, results in resultsDict.items():
 # print "TESTS", tests
 
 # temp printing stuff
-print "\n\t",
-for test in tests:
-    print str(tests.index(test) + 1) + " ",
-print "\n\n"
+# print "\n\t",
+# for test in tests:
+#     print str(tests.index(test) + 1) + " ",
+# print "\n\n"
+
+dataList = []
 
 for index, results in resultsDict.items():
     if results == 0:
@@ -128,7 +119,7 @@ for index, results in resultsDict.items():
         for test in tests:
             row.append(1)
         matrix.append(row)
-        #print index, "\t", row  # temp printing stuff
+        # print index, "\t", row  # temp printing stuff
     else:
         row = []
         for test in tests:
@@ -137,7 +128,9 @@ for index, results in resultsDict.items():
             else:
                 row.append(0)
         matrix.append(row)
-        #print index, "\t", row,  # temp printing stuff
+        # print index, "\t", row,  # temp printing stuff
+
+        # Categorize vector to calculate y-coordinate
         y = 0
         if row[0] == 1 or row[3] == 1:
             y += 1
@@ -147,6 +140,9 @@ for index, results in resultsDict.items():
             y += 1
         if row[2] == 1 or row[4] == 1:
             y += 1
-        print "({0}, {1})".format(sum(row), y)
-        # for row in matrix:
-        #     print row
+
+        # Sum vector to calculate x coordinate, use calculated y coordinate
+        # print "({0}, {1})".format(sum(row), y)
+        dataList.append((sum(row), y))
+
+plot_K.main(dataList)
