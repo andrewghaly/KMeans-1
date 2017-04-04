@@ -89,7 +89,6 @@ def plotCentroids(centroidList):
 
 
 def main(dataList):
-
     k = 2
     r = lambda: randint(0, 255)
     # numberOfCoordinates = int(sys.argv[2])
@@ -133,4 +132,3 @@ def main(dataList):
         plotCentroids(centroidList)
         plotCoordinates(coordinateList, centroidList)
         plt.show()
-
