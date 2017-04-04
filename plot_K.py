@@ -88,6 +88,7 @@ def plotCentroids(centroidList):
     for centroid in centroidList:
         centroid.plot()
 
+
 def main():
     x = [(6, 4),
          (7, 4),
