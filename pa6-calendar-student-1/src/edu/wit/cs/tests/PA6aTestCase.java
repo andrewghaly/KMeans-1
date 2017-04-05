@@ -1,4 +1,4 @@
-package edu.wit.cs.comp1000.tests;
+package edu.wit.cs.tests;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 public class PA6aTestCase extends TestCase {
     // Added Code
-    private static edu.wit.cs.comp1000.PA6a_Original testClass;
+    private static edu.wit.cs.comp1000.PA6a2u019 testClass;
     
     // Runs everything that starts with 'test'
     // End Added Code

@@ -1,4 +1,4 @@
-package edu.wit.cs.comp1000.tests;
+package edu.wit.cs.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
