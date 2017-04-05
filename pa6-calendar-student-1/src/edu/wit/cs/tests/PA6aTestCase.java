@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 public class PA6aTestCase extends TestCase {
     // Added Code
-    private static edu.wit.cs.comp1000.PA6a2u019 testClass;
+    private static edu.wit.cs.comp1000.PA6a1u001 testClass;
     
     // Runs everything that starts with 'test'
     // End Added Code
@@ -94,14 +94,6 @@ public class PA6aTestCase extends TestCase {
         _testLeapYear(2015, false);
         _testLeapYear(2016, true);
     }
-
-    /*
-     * Test cases:
-     *  ⁃year is zero
-     *  ⁃valid year, day outside 0-6 range, give -2 & 8 , -1 & 7,
-     *  ⁃test 2015 & 2016 for leap year and normal
-     */
-
 
     public void _testMonth(String month, int startDay, int numDays, String expectedOutput, int expectedReturn) {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();

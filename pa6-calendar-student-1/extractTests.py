@@ -6,7 +6,6 @@ import os
 import re
 import subprocess
 import sys
-import time
 import json
 
 import plot_K
@@ -17,7 +16,7 @@ import plot_K
 utestfile = 'src/edu/wit/cs/tests/PA6aTestCase.java'
 studentcode = 'src/edu/wit/cs/comp1000/'
 compile = "javac " + utestfile + ' -classpath src:junit-4.12.jar'
-run = 'java -cp junit-4.12.jar:hamcrest-core-1.3.jar:src org.junit.runner.JUnitCore edu.wit.cs.tests.PA6aTestCase'
+run = 'java -cp junit-4.12.jar:hamcrest-core-1.3.jar:src org.junit.runner.JUnitCore edu.wit.cs.t`ests.PA6aTestCase'
 resultsDict = {}
 
 
@@ -193,4 +192,4 @@ for index, results in resultsDict.items():
         # print "({0}, {1})".format(sum(row), y)
         dataList.append((sum(row), y))
 
-# plot_K.main(dataList)
+plot_K.main(dataList)
