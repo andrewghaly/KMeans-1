@@ -53,7 +53,7 @@ class Coordinate:
 
     def plot(self):
         x, y = self.position
-        plt.scatter(x, y, marker="o", color=self.color, alpha=.5, s=75)
+        plt.scatter(x, y, marker="o", color=self.color, alpha=.5)
 
 
 def plotCoordinates(coordinateList, centroidList):
@@ -98,6 +98,7 @@ def main(dataList):
     for position in dataList:
         coordinateList.append(Coordinate(position, None))
 
+    # -----Algorithms to generate Centroids-----
     # This will generate 3 unique coordinates from x
     randomCentroidList = list()
     while len(randomCentroidList) != k:
@@ -116,9 +117,11 @@ def main(dataList):
     maxX = max([xCoordinate[0] for xCoordinate in dataList])
 
     # Get random k (x,y)
-    coordinateY = maxY * np.random.random((k, 1))
-    coordinateX = maxX * np.random.random((k, 1))
-    randomCentroidList = [(coordinateX[i], coordinateY[i]) for i in range(0, k)]
+    coordinateY = maxY * np.random.random((k,1))
+    coordinateX = maxX * np.random.random((k,1))
+
+    randomCentroidList = [(coordinateX[i], coordinateY[i])for i in range(0,k)]
+
 
     centroidList = list()
     i = 0
@@ -131,6 +134,8 @@ def main(dataList):
     plotCoordinates(coordinateList, centroidList)
     plt.show()
 
+    # Keep plotting new graph
+    # until positions do not change
     completed = 0
     while completed != k:
         completed = 0

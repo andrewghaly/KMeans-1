@@ -1,7 +1,8 @@
 import os
 import re
 
-path = """/Users/andrewghaly/Google Drive/Home/School/Classes/Semester VII/Artificial Intelligence/Project/source"""
+
+path = """pa6-calendar-student-1/source/"""
 for root, dirs, files in os.walk(path):
     for file in files:
         if file.endswith(".java"):
@@ -21,4 +22,4 @@ for root, dirs, files in os.walk(path):
                 line = re.sub(r"class %s" % file[:-5], "class " + className, line)
                 f.write(line)
 
-                # os.rmdir(root)
+
