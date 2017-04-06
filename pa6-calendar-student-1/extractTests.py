@@ -7,8 +7,6 @@ import re
 import subprocess
 import sys
 import json
-import hashlib
-
 import plot_K
 
 # TODO change output format for k-means
@@ -41,6 +39,7 @@ def readCompiledList():
 
     return loadedDictionary
 
+
 # Parses the output from running the unit tests
 # Appends it into a dictionary with results
 def parseTestResults(out):
@@ -54,6 +53,7 @@ def parseTestResults(out):
                 failure = r.split(line)
                 list.append(failure[1])
         return list
+
 
 def getTestNames():
     # Getting names of all tests PA6aTestCase
@@ -181,15 +181,21 @@ for studentID, failedTestList in resultsDict.items():
 
         # Categorize vector to calculate y-coordinate
         yCoord = 0
-        if testVector[0] == 1 or testVector[3] == 1:
+        if testVector[0] == 1:
             yCoord += 1
-        if testVector[1] == 1 or testVector[6] == 1:
-            yCoord += 1
+        if testVector[1] == 1:
+            yCoord += 2
+        if testVector[2] == 1:
+            yCoord += 2
+        if testVector[3] == 1:
+            # test2016
+            yCoord += 4
+        if testVector[4] == 1:
+            yCoord += 2
         if testVector[5] == 1:
             yCoord += 1
-        if testVector[2] == 1 or testVector[4] == 1:
+        if testVector[6] == 1:
             yCoord += 1
-
         # Sum vector to calculate x coordinate, use calculated y coordinate
         # print "({0}, {1})".format(sum(row), y)
         dataList.append((sum(testVector), yCoord))

@@ -53,7 +53,7 @@ class Coordinate:
 
     def plot(self):
         x, y = self.position
-        plt.scatter(x, y, marker="o", color=self.color, alpha=.5)
+        plt.scatter(x, y, marker="o", color=self.color, alpha=.35, s=75)
 
 
 def plotCoordinates(coordinateList, centroidList):
@@ -89,7 +89,7 @@ def plotCentroids(centroidList):
 
 
 def main(dataList):
-    k = 3
+    k = 4
     r = lambda: randint(0, 255)
     # numberOfCoordinates = int(sys.argv[2])
     # coordinates = len(x) * np.random.random((numberOfCoordinates, 2)) + 1
@@ -106,21 +106,15 @@ def main(dataList):
         if newCoordinate not in randomCentroidList:
             randomCentroidList.append(newCoordinate)
 
-    # This will generate 3 random coordinates from x
-    # randomCentroidList = 10 * np.random.random((k, 2)) + 1
-    # randomCentroidList = [dataList[index] for index in
-    #                       [np.random.randint(0, len(dataList)) for i in range(0, k)]]
-
     # Generate 3 random coordinates within the data set
-    # Get the max bounds for the coordinates
-    maxY = max([yCoordinate[1] for yCoordinate in dataList])
-    maxX = max([xCoordinate[0] for xCoordinate in dataList])
+    #Get the max bounds for the coordinates
+    # maxY = max([yCoordinate[1] for yCoordinate in dataList])
+    # maxX = max([xCoordinate[0] for xCoordinate in dataList])
 
-    # Get random k (x,y)
-    coordinateY = maxY * np.random.random((k,1))
-    coordinateX = maxX * np.random.random((k,1))
-
-    randomCentroidList = [(coordinateX[i], coordinateY[i])for i in range(0,k)]
+    # # Get random k (x,y)
+    # coordinateY = maxY * np.random.random((k,1))
+    # coordinateX = maxX * np.random.random((k,1))
+    # randomCentroidList = [(coordinateX[i], coordinateY[i])for i in range(0,k)]
 
 
     centroidList = list()
