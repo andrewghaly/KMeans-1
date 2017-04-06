@@ -182,20 +182,33 @@ for studentID, failedTestList in resultsDict.items():
         # Categorize vector to calculate y-coordinate
         yCoord = 0
         if testVector[0] == 1:
+            # isLeapYear
             yCoord += 1
+
         if testVector[1] == 1:
+            # isNegYear
             yCoord += 2
+
         if testVector[2] == 1:
+            # test2015
             yCoord += 2
+
         if testVector[3] == 1:
             # test2016
             yCoord += 4
+
         if testVector[4] == 1:
+            # printMonth
             yCoord += 2
+
         if testVector[5] == 1:
+            # invalidDay
             yCoord += 1
+
         if testVector[6] == 1:
+            # zeroYear
             yCoord += 1
+
         # Sum vector to calculate x coordinate, use calculated y coordinate
         # print "({0}, {1})".format(sum(row), y)
         dataList.append((sum(testVector), yCoord))
