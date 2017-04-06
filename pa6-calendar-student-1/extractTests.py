@@ -7,7 +7,7 @@ import re
 import subprocess
 import sys
 import json
-import plot_K
+import plotK
 
 # TODO change output format for k-means
 
@@ -200,4 +200,4 @@ for studentID, failedTestList in resultsDict.items():
         # print "({0}, {1})".format(sum(row), y)
         dataList.append((sum(testVector), yCoord))
 
-plot_K.main(dataList)
+plotK.main(dataList, 4)
