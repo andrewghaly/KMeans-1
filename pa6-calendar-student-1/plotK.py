@@ -87,9 +87,15 @@ def plotCentroids(centroidList):
     for centroid in centroidList:
         centroid.plot()
 
+def plotGraph(inCentroidList, inCoordinateList):
+    plotCentroids(inCentroidList)
+    plotCoordinates(inCoordinateList, inCentroidList)
+    plt.xlabel('# of tests passed', fontsize=16, style='italic')
+    plt.ylabel('# of tests passed (weighted) ', fontsize=16, style='italic')
+    plt.show()
+
 
 def main(dataList, k):
-
     r = lambda: randint(0, 255)
     # numberOfCoordinates = int(sys.argv[2])
     # coordinates = len(x) * np.random.random((numberOfCoordinates, 2)) + 1
@@ -98,7 +104,7 @@ def main(dataList, k):
     for position in dataList:
         coordinateList.append(Coordinate(position, None))
 
-    # -----Algorithms to generate Centroids-----
+    # <-----Algorithms to generate Centroids----->
     # This will generate 3 unique coordinates from x
     randomCentroidList = list()
     while len(randomCentroidList) != k:
@@ -107,14 +113,14 @@ def main(dataList, k):
             randomCentroidList.append(newCoordinate)
 
     # Generate 3 random coordinates within the data set
-    #Get the max bounds for the coordinates
+    # Get the max bounds for the coordinates
     # maxY = max([yCoordinate[1] for yCoordinate in dataList])
     # maxX = max([xCoordinate[0] for xCoordinate in dataList])
-
-    # # Get random k (x,y)
     # coordinateY = maxY * np.random.random((k,1))
     # coordinateX = maxX * np.random.random((k,1))
     # randomCentroidList = [(coordinateX[i], coordinateY[i])for i in range(0,k)]
+    # <-----End Centroid Generation Algorithms----->
+
 
 
     centroidList = list()
@@ -124,9 +130,7 @@ def main(dataList, k):
         i += 1
 
     # Initial Centroid
-    plotCentroids(centroidList)
-    plotCoordinates(coordinateList, centroidList)
-    plt.show()
+    plotGraph(centroidList, coordinateList)
 
     # Keep plotting new graph
     # until positions do not change
@@ -138,6 +142,4 @@ def main(dataList, k):
             i.computePosition()
             if i.equals(tempPosition):
                 completed += 1
-        plotCentroids(centroidList)
-        plotCoordinates(coordinateList, centroidList)
-        plt.show()
+        plotGraph(centroidList, coordinateList)
