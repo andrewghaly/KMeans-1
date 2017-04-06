@@ -7,9 +7,10 @@ import re
 import subprocess
 import sys
 import json
-import hashlib
+import time
 
-import plot_K
+
+import plotK
 
 # TODO change output format for k-means
 
@@ -82,15 +83,23 @@ precompiledList = list(dataDictionary.keys())
 # Compiles and runs the code
 # If code has previously been run, it was imported
 # Reduces amount of compiling
+start = time.time()
 i = 1
 currCompiledList = list()
 rewriteJSONFile = False
 print "Running unit tests on data..."
 for file in glob.glob(studentCodeDirectory + '*.java'):
-    print i,
     fileNameWIthExtension = file.split("src/edu/wit/cs/comp1000/PA6a")
     studentNumber = fileNameWIthExtension[1][:-5]
     currCompiledList.append(studentNumber)
+    print studentNumber,
+
+    # m = hashlib.md5()
+    # m.update(file)
+    # m.update(openedFileData)
+    # hashedFiles = m.digest()
+    # hashedFiles = unicode(hashedFiles, errors='ignore')
+    # currentHash = dataDictionary[studentNumber][1]
 
     # Check if the code has already been compiled
     # Pull data from imported file and continue for rest of data
@@ -194,4 +203,4 @@ for studentID, failedTestList in resultsDict.items():
         # print "({0}, {1})".format(sum(row), y)
         dataList.append((sum(testVector), yCoord))
 
-plot_K.main(dataList)
+plotK.main(dataList)

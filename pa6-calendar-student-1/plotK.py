@@ -13,8 +13,7 @@ class Centroid:
 
     def euclid(self, b):
         """
-        Euclidean Distance Algorithm
-        SQRT((x1-x2)^2 + (y1-x2)^2))
+        Computes the Euclidean distance of two points
         """
         x, y = self.position
         input_x, input_y = b.position
@@ -44,7 +43,6 @@ class Centroid:
 class Coordinate:
     """
     Structure for each point
-
     """
 
     def __init__(self, position, color):
@@ -98,7 +96,7 @@ def main(dataList):
     for position in dataList:
         coordinateList.append(Coordinate(position, None))
 
-    # -----Algorithms to generate Centroids-----
+    # <-----Algorithms to Generate Centroids----->
     # This will generate 3 unique coordinates from x
     randomCentroidList = list()
     while len(randomCentroidList) != k:
@@ -113,16 +111,13 @@ def main(dataList):
 
     # Generate 3 random coordinates within the data set
     # Get the max bounds for the coordinates
-    maxY = max([yCoordinate[1] for yCoordinate in dataList])
     maxX = max([xCoordinate[0] for xCoordinate in dataList])
-
-    # Get random k (x,y)
+    maxY = max([yCoordinate[1] for yCoordinate in dataList])
+    coordinateX = maxX * np.random.random((k, 1))
     coordinateY = maxY * np.random.random((k,1))
-    coordinateX = maxX * np.random.random((k,1))
 
     randomCentroidList = [(coordinateX[i], coordinateY[i])for i in range(0,k)]
-
-
+    # <-----------------End Algorithms----------------->
     centroidList = list()
     i = 0
     for centroid_position in randomCentroidList:
@@ -135,7 +130,7 @@ def main(dataList):
     plt.show()
 
     # Keep plotting new graph
-    # until positions do not change
+    # Until positions do not change
     completed = 0
     while completed != k:
         completed = 0
