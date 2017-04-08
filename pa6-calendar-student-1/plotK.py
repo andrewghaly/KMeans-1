@@ -45,7 +45,7 @@ class Centroid:
 
     def __str__(self):
         stringRep = str(
-            "Centroid ({0},{1}), has {2} points".format(int(self.position[0]), int(self.position[1]),
+            "Centroid ({0}, {1}), has {2} points".format(round(self.position[0], 2), round(self.position[1], 2),
                                                         len(self.coordinateList))
         )
         return stringRep
