@@ -45,7 +45,8 @@ class Centroid:
 
     def __str__(self):
         stringRep = str(
-            ("Centroid :", int(self.position[0]), ",", int(self.position[1]), " has :", len(self.coordinateList))
+            "Centroid ({0},{1}), has {2} points".format(int(self.position[0]), int(self.position[1]),
+                                                        len(self.coordinateList))
         )
         return stringRep
 
@@ -180,10 +181,10 @@ def main(dataList, k):
 
     # <-----Algorithms to generate Centroid positions----->
     # This will generate k unique coordinates from x
-    # randomCentroidList = generateUniqueCentroids(k, dataList)
+    randomCentroidList = generateUniqueCentroids(k, dataList)
 
     # Generate k random coordinates within the data set
-    randomCentroidList = generateRandomCentroids(k, dataList)
+    # randomCentroidList = generateRandomCentroids(k, dataList)
     # <-----End Centroid Generation Algorithms----->
 
     # Creates the list of Centroid objects
