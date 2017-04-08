@@ -236,7 +236,7 @@ def main():
     rewriteJSONFile(rewriteJSONFlag, resultsDict)
 
     dataList = generateCoordinates(unitTestFile, resultsDict)
-    plotK.main(dataList, 1000)
+    plotK.main(dataList, 4)
 
 
 if __name__ == "__main__":
