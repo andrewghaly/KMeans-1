@@ -3,10 +3,10 @@ import numpy as np
 from math import sqrt
 import random
 
-
+colors = list('cmyk')
 class Centroid:
     def __init__(self, color, position):
-        self.color = color
+        self.color = colors.pop()
         self.position = position
         self.coordinateList = list()
 
