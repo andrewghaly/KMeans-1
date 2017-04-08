@@ -178,7 +178,7 @@ for studentID, failedTestList in resultsDict.items():
                 testVector.append(0)
         matrix.append(testVector)
 
-        # Categorize vector to calculate y-coordinate
+        # Weight each test for use as y-coordinate
         yCoord = 0
         if testVector[0] == 1:
             # isLeapYear
