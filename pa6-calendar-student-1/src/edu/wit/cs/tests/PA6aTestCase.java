@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 public class PA6aTestCase extends TestCase {
     // Added Code
-    private static edu.wit.cs.comp1000.PA6a1u001 testClass;
+    private static edu.wit.cs.comp1000.PA6a1u002 testClass;
     
     // Runs everything that starts with 'test'
     // End Added Code

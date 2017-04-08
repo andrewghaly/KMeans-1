@@ -5,8 +5,7 @@ from random import randint
 
 
 class Centroid:
-    def __init__(self, number, color, position):
-        self.number = number
+    def __init__(self, color, position):
         self.color = color
         self.position = position
         self.coordinateList = list()
@@ -14,7 +13,7 @@ class Centroid:
     def euclid(self, b):
         """
         Euclidean Distance Algorithm
-        SQRT((x1-x2)^2 + (y1-x2)^2))
+        sqrt((x1-x2)^2 + (y1-x2)^2))
         """
         x, y = self.position
         input_x, input_y = b.position
@@ -87,6 +86,7 @@ def plotCentroids(centroidList):
     for centroid in centroidList:
         centroid.plot()
 
+
 def plotGraph(inCentroidList, inCoordinateList):
     plotCentroids(inCentroidList)
     plotCoordinates(inCoordinateList, inCentroidList)
@@ -97,8 +97,6 @@ def plotGraph(inCentroidList, inCoordinateList):
 
 def main(dataList, k):
     r = lambda: randint(0, 255)
-    # numberOfCoordinates = int(sys.argv[2])
-    # coordinates = len(x) * np.random.random((numberOfCoordinates, 2)) + 1
 
     coordinateList = list()
     for position in dataList:
@@ -121,12 +119,10 @@ def main(dataList, k):
     # randomCentroidList = [(coordinateX[i], coordinateY[i])for i in range(0,k)]
     # <-----End Centroid Generation Algorithms----->
 
-
-
     centroidList = list()
     i = 0
     for centroid_position in randomCentroidList:
-        centroidList.append(Centroid(i, '#%02X%02X%02X' % (r(), r(), r()), centroid_position))
+        centroidList.append(Centroid('#%02X%02X%02X' % (r(), r(), r()), centroid_position))
         i += 1
 
     # Initial Centroid
