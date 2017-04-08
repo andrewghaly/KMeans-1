@@ -157,8 +157,9 @@ matrix = list()
 """
 totalNumTests = len(testList)
 
-for studentID, failedTestList in resultsDict.items():
-    print studentID, failedTestList, "Failed: ", len(failedTestList), "/", totalNumTests
+# Prints the failed tests for each student
+# for studentID, failedTestList in resultsDict.items():
+#     print studentID, failedTestList, "Failed: ", len(failedTestList), "/", totalNumTests
 
 dataList = []
 
@@ -168,7 +169,6 @@ for studentID, failedTestList in resultsDict.items():
         for test in testList:
             testVector.append(1)
         matrix.append(testVector)
-        # print index, "\t", row  # temp printing stuff
     else:
         testVector = []
         for test in testList:
@@ -177,7 +177,6 @@ for studentID, failedTestList in resultsDict.items():
             else:
                 testVector.append(0)
         matrix.append(testVector)
-        # print index, "\t", row,  # temp printing stuff
 
         # Categorize vector to calculate y-coordinate
         yCoord = 0
