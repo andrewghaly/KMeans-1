@@ -75,6 +75,7 @@ def getTestNames(unitTestFile):
             testList.append(test)
     return testList
 
+
 def rewriteJSONFile(rewriteJSONFlag, dataDictionary):
     # Begin data analyzing and parsing
     # Write to a file list of all compiled classes
@@ -90,6 +91,11 @@ def rewriteJSONFile(rewriteJSONFlag, dataDictionary):
 
     print "\nCOMPLETE\n"
 
+
+def printResultsFromTests(dictionary, numTests):
+    # Prints the failed tests for each student
+    for studentID, failedTestList in dictionary.items():
+        print studentID, failedTestList, "Failed: ", len(failedTestList), "/", numTests
 
 def main():
     # STATIC FILE LOCATIONS
@@ -109,6 +115,7 @@ def main():
     # Store current session data and name of compiled files
     resultsDict = {}
 
+    # Run each test and store the results in the resultsDict
     print "Running unit tests on data..."
     for file in glob.glob(studentCodeDirectory + '*.java'):
         # Splice each filename to get a unique identifier
@@ -146,41 +153,38 @@ def main():
                     f.close()
 
             # Compile the test case with the new student code
-            # If it does not exist
             os.system(compileTestCommand)
 
-            # Run the Unit Test file and store the output into
+            # Run the Unit Test file
             runUnitTest = subprocess.Popen([runTestCommand], stdout=subprocess.PIPE, shell=True)
             results = runUnitTest.stdout.read()
 
-            # Parse the output
+            # Parse the output and put it into the dictionary
             failedTestsList = parseTestResults(results)
             resultsDict[studentNumber] = failedTestsList
 
     # Check if Dictionary needs to be rewritten
     rewriteJSONFile(rewriteJSONFlag, resultsDict)
-    dataList = generateMatrix(unitTestFile, resultsDict)
+
+    dataList = generateCoordinates(unitTestFile, resultsDict)
     plotK.main(dataList, 4)
 
-# End of compiling and running tests
+def generateCoordinates(unitTestFile, resultsDict):
+    """
+    Returns a list of coordinates(x,y) that represent the data
+    Uses the data from resultsDict to create a Boolean Matrix
+    Iterates through the matrix and sums the rows and uses it as the yCoordinate
+    """
 
-# Begin data analyzing and parsing
-# Write to a file list of all compiled classes
-def generateMatrix(unitTestFile, resultsDict):
     testList = getTestNames(unitTestFile)
-    matrix = list()
-
-    """
-        Next two for loops are redundant, exist elsewhere in the code
-    """
     totalNumTests = len(testList)
-
-    # Prints the failed tests for each student
-    # for studentID, failedTestList in resultsDict.items():
-    #     print studentID, failedTestList, "Failed: ", len(failedTestList), "/", totalNumTests
-
+    matrix = list()
     dataList = []
 
+    # List of tests failed by each student
+    # print printResultsFromTests(resultsDict, totalNumTests)
+
+    # Weight each test from the Boolean Matrix
     for studentID, failedTestList in resultsDict.items():
         if failedTestList == 0:
             testVector = []
