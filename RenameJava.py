@@ -2,6 +2,7 @@ import os
 import re
 import sys
 
+
 def main():
     if len(sys.argv) < 2:
         print "Please enter a path to the data directory."

@@ -45,7 +45,6 @@ class Centroid:
 
 
 class Coordinate:
-
     def __init__(self, position, color):
         self.position = position
         self.color = color
@@ -147,11 +146,11 @@ def generateRandomCentroids(k, dataList):
     coordinateX = maxX * np.random.random((k, 1))
 
     # Iterates through combining the values as coordinates into a list
-    centroidList = [(coordinateX[i], coordinateY[i])for i in range(0, k)]
+    centroidList = [(coordinateX[i], coordinateY[i]) for i in range(0, k)]
     return centroidList
 
-def main(dataList, k):
 
+def main(dataList, k):
     # Lambda function to generate a random color
     r = lambda: randint(0, 255)
 

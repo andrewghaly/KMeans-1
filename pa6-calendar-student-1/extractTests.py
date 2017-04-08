@@ -97,6 +97,7 @@ def printResultsFromTests(dictionary, numTests):
     for studentID, failedTestList in dictionary.items():
         print studentID, failedTestList, "Failed: ", len(failedTestList), "/", numTests
 
+
 def main():
     # STATIC FILE LOCATIONS
     # STATIC FILE COMMANDS
@@ -169,6 +170,7 @@ def main():
     dataList = generateCoordinates(unitTestFile, resultsDict)
     plotK.main(dataList, 4)
 
+
 def generateCoordinates(unitTestFile, resultsDict):
     """
     Returns a list of coordinates(x,y) that represent the data
@@ -235,6 +237,7 @@ def generateCoordinates(unitTestFile, resultsDict):
             dataList.append((sum(testVector), yCoord))
 
     return dataList
+
 
 if __name__ == "__main__":
     main()
