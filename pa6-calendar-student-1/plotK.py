@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from math import sqrt
-from random import randint
+import random
 
 
 class Centroid:
@@ -42,6 +42,12 @@ class Centroid:
             return True
         else:
             return False
+
+    def __str__(self):
+        stringRep = str(
+            ("Centroid :", int(self.position[0]), ",", int(self.position[1]), " has :", len(self.coordinateList))
+        )
+        return stringRep
 
 
 class Coordinate:
@@ -107,6 +113,9 @@ def plotGraph(inCentroidList, inCoordinateList):
     plotCoordinates(inCoordinateList, inCentroidList)
     plt.xlabel('# of tests passed', fontsize=16, style='italic')
     plt.ylabel('# of tests passed (weighted) ', fontsize=16, style='italic')
+    for centroid in inCentroidList:
+        print centroid
+    print "\n"
     plt.show()
 
 
@@ -116,15 +125,24 @@ def generateUniqueCentroids(k, dataList):
     Selects k unique coordinates that exist within the data
     Returns the set of coordinates
     """
-    centroidList = list()
-    # Stops when k # of centroids have been added to the list
-    while len(centroidList) != k:
-        # Get a random coordinate within the list of data
-        newCoordinate = dataList[np.random.randint(0, len(dataList))]
+    uniqueCoordinateList = list()
+
+    # Find all unique coordinates in the list
+    for coordinate in dataList:
 
         # Check that it's not already in the set
-        if newCoordinate not in centroidList:
-            centroidList.append(newCoordinate)
+        if coordinate not in uniqueCoordinateList:
+            uniqueCoordinateList.append(coordinate)
+
+    # Generate k-number of random coordinates
+    centroidList = list()
+
+    while len(centroidList) != k and uniqueCoordinateList:
+        centroid = random.choice(uniqueCoordinateList)
+        uniqueCoordinateList.remove(centroid)
+
+        if centroid not in centroidList:
+            centroidList.append(centroid)
 
     return centroidList
 
@@ -146,13 +164,13 @@ def generateRandomCentroids(k, dataList):
     coordinateX = maxX * np.random.random((k, 1))
 
     # Iterates through combining the values as coordinates into a list
-    centroidList = [(coordinateX[i], coordinateY[i]) for i in range(0, k)]
+    centroidList = [(coordinateX[i], coordinateY[i]) for i in range(k)]
     return centroidList
 
 
 def main(dataList, k):
     # Lambda function to generate a random color
-    r = lambda: randint(0, 255)
+    r = lambda: random.randint(0, 255)
 
     # Convert the coordinates into Coordinate objects
     # Fill it into a list
@@ -162,10 +180,10 @@ def main(dataList, k):
 
     # <-----Algorithms to generate Centroid positions----->
     # This will generate k unique coordinates from x
-    randomCentroidList = generateUniqueCentroids(k, dataList)
+    # randomCentroidList = generateUniqueCentroids(k, dataList)
 
     # Generate k random coordinates within the data set
-    # randomCentroidList = generateRandomCentroids(k, dataList)
+    randomCentroidList = generateRandomCentroids(k, dataList)
     # <-----End Centroid Generation Algorithms----->
 
     # Creates the list of Centroid objects
@@ -179,11 +197,11 @@ def main(dataList, k):
     # Keep plotting new graph
     # until positions do not change
     completed = 0
-    while completed != k:
+    while completed != len(plottedCentroidList):
         completed = 0
-        for i in plottedCentroidList:
-            tempPosition = i.position
-            i.computePosition()
-            if i.equals(tempPosition):
+        for centroid in plottedCentroidList:
+            oldPosition = centroid.position
+            centroid.computePosition()
+            if centroid.equals(oldPosition):
                 completed += 1
         plotGraph(plottedCentroidList, plottedCoordinateList)

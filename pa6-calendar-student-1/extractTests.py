@@ -98,6 +98,74 @@ def printResultsFromTests(dictionary, numTests):
         print studentID, failedTestList, "Failed: ", len(failedTestList), "/", numTests
 
 
+def generateCoordinates(unitTestFile, resultsDict):
+    """
+    Returns a list of coordinates(x,y) that represent the data
+    Uses the data from resultsDict to create a Boolean Matrix
+    Iterates through the matrix and sums the rows and uses it as the yCoordinate
+    """
+
+    testList = getTestNames(unitTestFile)
+    totalNumTests = len(testList)
+    matrix = list()
+    dataList = []
+
+    # List of tests failed by each student
+    # print printResultsFromTests(resultsDict, totalNumTests)
+
+    # Weight each test from the Boolean Matrix
+    for studentID, failedTestList in resultsDict.items():
+        if failedTestList == 0:
+            testVector = []
+            for test in testList:
+                testVector.append(1)
+            matrix.append(testVector)
+        else:
+            testVector = []
+            for test in testList:
+                if test not in failedTestList:
+                    testVector.append(1)
+                else:
+                    testVector.append(0)
+            matrix.append(testVector)
+
+            # Categorize vector to calculate y-coordinate
+            yCoord = 0
+            if testVector[0] == 1:
+                # isLeapYear
+                yCoord += 1
+
+            if testVector[1] == 1:
+                # isNegYear
+                yCoord += 2
+
+            if testVector[2] == 1:
+                # test2015
+                yCoord += 2
+
+            if testVector[3] == 1:
+                # test2016
+                yCoord += 4
+
+            if testVector[4] == 1:
+                # printMonth
+                yCoord += 2
+
+            if testVector[5] == 1:
+                # invalidDay
+                yCoord += 1
+
+            if testVector[6] == 1:
+                # zeroYear
+                yCoord += 2
+
+            # Sum vector to calculate x coordinate, use calculated y coordinate
+            # print "({0}, {1})".format(sum(row), y)
+            dataList.append((sum(testVector), yCoord))
+
+    return dataList
+
+
 def main():
     # STATIC FILE LOCATIONS
     # STATIC FILE COMMANDS
@@ -168,75 +236,7 @@ def main():
     rewriteJSONFile(rewriteJSONFlag, resultsDict)
 
     dataList = generateCoordinates(unitTestFile, resultsDict)
-    plotK.main(dataList, 4)
-
-
-def generateCoordinates(unitTestFile, resultsDict):
-    """
-    Returns a list of coordinates(x,y) that represent the data
-    Uses the data from resultsDict to create a Boolean Matrix
-    Iterates through the matrix and sums the rows and uses it as the yCoordinate
-    """
-
-    testList = getTestNames(unitTestFile)
-    totalNumTests = len(testList)
-    matrix = list()
-    dataList = []
-
-    # List of tests failed by each student
-    # print printResultsFromTests(resultsDict, totalNumTests)
-
-    # Weight each test from the Boolean Matrix
-    for studentID, failedTestList in resultsDict.items():
-        if failedTestList == 0:
-            testVector = []
-            for test in testList:
-                testVector.append(1)
-            matrix.append(testVector)
-        else:
-            testVector = []
-            for test in testList:
-                if test not in failedTestList:
-                    testVector.append(1)
-                else:
-                    testVector.append(0)
-            matrix.append(testVector)
-
-            # Categorize vector to calculate y-coordinate
-            yCoord = 0
-            if testVector[0] == 1:
-                # isLeapYear
-                yCoord += 1
-
-            if testVector[1] == 1:
-                # isNegYear
-                yCoord += 2
-
-            if testVector[2] == 1:
-                # test2015
-                yCoord += 2
-
-            if testVector[3] == 1:
-                # test2016
-                yCoord += 4
-
-            if testVector[4] == 1:
-                # printMonth
-                yCoord += 2
-
-            if testVector[5] == 1:
-                # invalidDay
-                yCoord += 1
-
-            if testVector[6] == 1:
-                # zeroYear
-                yCoord += 2
-
-            # Sum vector to calculate x coordinate, use calculated y coordinate
-            # print "({0}, {1})".format(sum(row), y)
-            dataList.append((sum(testVector), yCoord))
-
-    return dataList
+    plotK.main(dataList, 1000)
 
 
 if __name__ == "__main__":
