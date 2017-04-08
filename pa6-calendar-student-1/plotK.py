@@ -63,18 +63,26 @@ def plotCoordinates(coordinateList, centroidList):
     Add that point to the centroidList and plot it on the map
     """
 
-    # Reset the coordinateList within the Centroid
+    # Reset the coordinateList for each Centroid
     for current_centroid in centroidList:
         current_centroid.coordinateList = list()
 
-    #
+    # Calculate the nearest Centroid
+    # Append it to the Centroid's coordinate list
+    # Color the coordinate the same as the Centroid
     for coordinate in coordinateList:
+
+        # Get a list of all the distances to the Centroids
         distanceList = list()
         for centroid in centroidList:
             distanceList.append(centroid.euclid(coordinate))
 
+        # Gets the lowest numerical distance to a centroid
         minDistance = min(distanceList)
 
+        # Find the index of the closest distance
+        # Use that index to get the closest Centroid
+        # Apply all the properties to the Coordinate
         for i in range(len(centroidList)):
             temp_distance = distanceList[i]
 
@@ -86,14 +94,15 @@ def plotCoordinates(coordinateList, centroidList):
 
 
 def plotCentroids(centroidList):
-    """ Plots the centroids on the map """
+    """ Plots the centroids on the graph"""
     for centroid in centroidList:
         centroid.plot()
 
 
 def plotGraph(inCentroidList, inCoordinateList):
-    """
-    
+    """ 
+    Plot the centroid and Coordinates 
+    Apply the axis to the graph window
     """
     plotCentroids(inCentroidList)
     plotCoordinates(inCoordinateList, inCentroidList)
@@ -142,25 +151,28 @@ def generateRandomCentroids(k, dataList):
     return centroidList
 
 def main(dataList, k):
+
+    # Lambda function to generate a random color
     r = lambda: randint(0, 255)
 
+    # Convert the coordinates into Coordinate objects
+    # Fill it into a list
     plottedCoordinateList = list()
     for position in dataList:
         plottedCoordinateList.append(Coordinate(position, None))
 
-    # <-----Algorithms to generate Centroids----->
-    # This will generate 3 unique coordinates from x
+    # <-----Algorithms to generate Centroid positions----->
+    # This will generate k unique coordinates from x
     randomCentroidList = generateUniqueCentroids(k, dataList)
 
-    # Generate 3 random coordinates within the data set
-    randomCentroidList = generateRandomCentroids(k, dataList)
+    # Generate k random coordinates within the data set
+    # randomCentroidList = generateRandomCentroids(k, dataList)
     # <-----End Centroid Generation Algorithms----->
 
+    # Creates the list of Centroid objects
     plottedCentroidList = list()
-    i = 0
     for centroid_position in randomCentroidList:
         plottedCentroidList.append(Centroid('#%02X%02X%02X' % (r(), r(), r()), centroid_position))
-        i += 1
 
     # Initial Centroid
     plotGraph(plottedCentroidList, plottedCoordinateList)
