@@ -21,29 +21,29 @@ def readCompiledList():
     # Check if file path exists
     if os.path.isfile(pathToList):
         # Open and read in lines
-        # Append into a list
+        # Append to a list
         with open(pathToList, 'r') as f:
             try:
                 loadedDictionary = json.load(f)
             except ValueError:
-                print "No data inside of file continuing..."
+                print "No data inside of file, continuing..."
         f.close()
     else:
-        print "Could not find file for loading in data"
+        print "Could not find data file to load"
 
     return loadedDictionary
 
 
 def parseTestResults(out):
     """
-    Parses the output from running the unit tests
+    Parses the output from unit tests
     Appends it into a dictionary with results
     """
 
     # User passed all Unit Tests
     if "OK (" in out:
         return []
-    # User failed atleast 1 test
+    # User failed at least 1 test
     else:
         list = []
         r = re.compile(r"\) |\(")

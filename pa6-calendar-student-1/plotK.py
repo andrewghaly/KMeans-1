@@ -20,7 +20,7 @@ class Centroid:
         return sqrt((x - input_x) ** 2 + (y - input_y) ** 2)
 
     def plot(self):
-        """Adds this to the current plot/graph"""
+        """Adds point to the current plot"""
         x, y = self.position
         plt.scatter(x, y, s=250, marker=u'^', color=self.color, zorder=5)
 
@@ -37,7 +37,7 @@ class Centroid:
             self.position = (np.mean(x_value_list), np.mean(y_value_list))
 
     def equals(self, input_position):
-        """Checks if two Centroids are at the same position"""
+        """Checks if two Centroids are in the same position"""
         if input_position[0] == self.position[0] and input_position[1] == self.position[1]:
             return True
         else:
@@ -57,7 +57,7 @@ class Coordinate:
         self.color = color
 
     def plot(self):
-        """Adds this to the current plot/graph"""
+        """Adds point to the current plot"""
         x, y = self.position
         plt.scatter(x, y, marker="o", color=self.color, alpha=.35, s=75)
 
@@ -100,7 +100,7 @@ def plotCoordinates(coordinateList, centroidList):
 
 
 def plotCentroids(centroidList):
-    """ Plots the centroids on the graph"""
+    """ Plots centroids on to graph"""
     for centroid in centroidList:
         centroid.plot()
 
@@ -122,8 +122,8 @@ def plotGraph(inCentroidList, inCoordinateList):
 
 def generateUniqueCentroids(k, dataList):
     """
-    Generates a list of centroids used in the K-Means graph
-    Selects k unique coordinates that exist within the data
+    Generates a list of centroids used in the k-Means graph
+    Selects k-unique coordinates that exist within the data
     Returns the set of coordinates
     """
     uniqueCoordinateList = list()
@@ -150,16 +150,16 @@ def generateUniqueCentroids(k, dataList):
 
 def generateRandomCentroids(k, dataList):
     """
-    Generates a list of centroids used in the K-Means graph
+    Generates a list of centroids used in the k-Means graph
     Uses the max x and y values for the upper bounds of the generated coordinates
-    Randomly generate k coordinates within the the bounds
+    Randomly generate k-coordinates within the the bounds
     Returns the list of the coordinates
     """
     # Compute the max x and y values
     maxY = max([yCoordinate[1] for yCoordinate in dataList])
     maxX = max([xCoordinate[0] for xCoordinate in dataList])
 
-    # Selects k number of unique x and y values
+    # Selects k-number of unique x and y values
     # Using the bounds from maxX and maxY
     coordinateY = maxY * np.random.random((k, 1))
     coordinateX = maxX * np.random.random((k, 1))
@@ -180,10 +180,10 @@ def main(dataList, k):
         plottedCoordinateList.append(Coordinate(position, None))
 
     # <-----Algorithms to generate Centroid positions----->
-    # This will generate k unique coordinates from x
+    # This will generate k-unique coordinates from x
     randomCentroidList = generateUniqueCentroids(k, dataList)
 
-    # Generate k random coordinates within the data set
+    # Generate k-random coordinates within the data set
     # randomCentroidList = generateRandomCentroids(k, dataList)
     # <-----End Centroid Generation Algorithms----->
 
