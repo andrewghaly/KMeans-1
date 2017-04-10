@@ -3,10 +3,10 @@ import numpy as np
 from math import sqrt
 import random
 
-colors = list('cmyk')
+colors = list('cmykg')
 class Centroid:
     def __init__(self, color, position):
-        self.color = colors.pop()
+        self.color = self.pop()
         self.position = position
         self.coordinateList = list()
 
@@ -18,6 +18,16 @@ class Centroid:
         x, y = self.position
         input_x, input_y = b.position
         return sqrt((x - input_x) ** 2 + (y - input_y) ** 2)
+
+    def manhattan(self, b):
+        """
+        Manhattan Distance Algorithm for two points
+        abs(x1-x2) + abs(y1y2)
+        """
+        x,y = self.position
+        input_x, input_y = b.position
+        return abs(x-input_x) + abs(y-input_y)
+
 
     def plot(self):
         """Adds point to the current plot"""
